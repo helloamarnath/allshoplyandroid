@@ -11,27 +11,13 @@
         android:id="@+id/progressBar"
         android:max="3"
         android:progress="100"
-        style="@android:style/Widget.ProgressBar.Small"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"/>
+        android:alpha="0.6"
+        style="@android:style/Widget.ProgressBar.Large"
+       android:layout_centerInParent="true"/>
     <WebView
         android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        />
-    <!--<com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/av_loader"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/loader"
-        app:lottie_loop="true"/>-->
+        />
 
 </RelativeLayout>

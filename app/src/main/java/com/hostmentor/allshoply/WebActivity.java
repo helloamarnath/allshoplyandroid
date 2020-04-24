@@ -55,16 +55,21 @@ public class WebActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon){
             super.onPageStarted(view, url, favicon);
+
         }
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if ("https://www.allshoply.com".equals(Uri.parse(url).getHost())) {
+           /* if ("https://www.allshoply.com".equals(Uri.parse(url).getHost())) {
                 // This is my website, so do not override; let my WebView load the page
                 return false;
             }
             // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
+            return true;*/
+
+            progressBar.setVisibility(View.VISIBLE);
+            view.loadUrl(url);
             return true;
         }
         @Override
@@ -83,6 +88,14 @@ public class WebActivity extends AppCompatActivity {
         // If it wasn't the Back key or there's no web page history, bubble up to the default
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    public void onBackPressed(){
+        if(myWebView.canGoBack()){
+            myWebView.goBack();
+        }else {
+            super.onBackPressed();
+        }
     }
     }
 
