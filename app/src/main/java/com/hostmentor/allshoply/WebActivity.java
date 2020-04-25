@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -44,21 +45,17 @@ public class WebActivity extends AppCompatActivity {
         myWebView.setInitialScale(1);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         myWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         myWebView.setScrollbarFadingEnabled(false);
-        myWebView.loadUrl("https://www.allshoply.com");
+        myWebView.loadUrl("https://www.allshoply.com/my-account/");
     }
     private class MyWebViewClient extends WebViewClient {
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon){
-            super.onPageStarted(view, url, favicon);
-
-        }
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
            /* if ("https://www.allshoply.com".equals(Uri.parse(url).getHost())) {
                 // This is my website, so do not override; let my WebView load the page
                 return false;
@@ -67,11 +64,18 @@ public class WebActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
             return true;*/
+            String url = request.getUrl().toString();
 
-            progressBar.setVisibility(View.VISIBLE);
             view.loadUrl(url);
-            return true;
+            progressBar.setVisibility(View.VISIBLE);
+           return true;
         }
+//        //Show loader on url load
+//        @Override
+//        public void onLoadResource (WebView view, String url) {
+//            super.onLoadResource(view,url);
+//            progressBar.setVisibility(View.VISIBLE);
+//        }
         @Override
         public void onPageFinished(WebView view,String url){
             super.onPageFinished(view,url);
