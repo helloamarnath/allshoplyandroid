@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WebActivity">
-    <ProgressBar
+    <!--<ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
@@ -13,7 +13,7 @@
         android:progress="100"
         android:alpha="0.6"
         style="@android:style/Widget.ProgressBar.Large"
-       android:layout_centerInParent="true"/>
+       android:layout_centerInParent="true"/>-->
     <WebView
         android:id="@+id/webview"
         android:layout_width="fill_parent"

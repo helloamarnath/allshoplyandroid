@@ -3,6 +3,7 @@ package com.hostmentor.allshoply;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
+
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -19,13 +22,18 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.airbnb.lottie.LottieAnimationView;
+
+
+
 import com.hostmentor.allshoply.Interface.WebAppInterface;
 
 public class WebActivity extends AppCompatActivity {
 
     WebView myWebView;
+    String url;
     Activity activity;
     ProgressBar progressBar;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +45,11 @@ public class WebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web);
 
         myWebView = (WebView) findViewById(R.id.webview);
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        //progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
 
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
-        myWebView.setWebViewClient(new MyWebViewClient());
+        myWebView.setWebChromeClient(new MyWebViewClient());
         myWebView.setInitialScale(1);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -50,38 +58,54 @@ public class WebActivity extends AppCompatActivity {
         webSettings.setUseWideViewPort(true);
         myWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         myWebView.setScrollbarFadingEnabled(false);
-        myWebView.loadUrl("https://www.allshoply.com/my-account/");
+        myWebView.loadUrl("https://www.allshoply.com");
     }
-    private class MyWebViewClient extends WebViewClient {
+   /* private class MyWebViewClient extends WebViewClient {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-           /* if ("https://www.allshoply.com".equals(Uri.parse(url).getHost())) {
-                // This is my website, so do not override; let my WebView load the page
-                return false;
-            }
-            // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-            return true;*/
             String url = request.getUrl().toString();
 
             view.loadUrl(url);
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
+//            if(progressDialog==null){
+//                progressDialog=new ProgressDialog(WebActivity.this);
+//                progressDialog.setMessage("Loading...");
+//                progressDialog.show();
+//            }
            return true;
         }
-//        //Show loader on url load
+        //Show loader on url load
 //        @Override
 //        public void onLoadResource (WebView view, String url) {
-//            super.onLoadResource(view,url);
-//            progressBar.setVisibility(View.VISIBLE);
+//           if(progressDialog == null){
+//               progressDialog=new ProgressDialog(WebActivity.this);
+//               progressDialog.setMessage("Loading...");
+//               progressDialog.show();
+//           }
 //        }
         @Override
         public void onPageFinished(WebView view,String url){
+//            if(progressDialog != null){
+//                progressDialog=new ProgressDialog(WebActivity.this);
+//               // progressDialog.setMessage("Loading...");
+//                progressDialog.dismiss();
+//            }
             super.onPageFinished(view,url);
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
         }
-    }
+    }*/
+
+   private  class MyWebViewClient extends WebChromeClient{
+       public void onProgressChanged(WebView view,int newProgress){
+           super.onProgressChanged(view,newProgress);
+
+              if(myWebView != null){
+                  url=myWebView.getUrl();
+              }
+
+       }
+   }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Check if the key event was the Back button and if there's history
