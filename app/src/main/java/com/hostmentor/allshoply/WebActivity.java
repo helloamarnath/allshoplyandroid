@@ -37,7 +37,7 @@ public class WebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web);
 
         myWebView = (WebView) findViewById(R.id.webview);
-//        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
 
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
@@ -67,7 +67,7 @@ public class WebActivity extends AppCompatActivity {
             String url = request.getUrl().toString();
 
             view.loadUrl(url);
-//            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
            return true;
         }
 //        //Show loader on url load
@@ -79,7 +79,7 @@ public class WebActivity extends AppCompatActivity {
         @Override
         public void onPageFinished(WebView view,String url){
             super.onPageFinished(view,url);
-//            progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
     }
     @Override
